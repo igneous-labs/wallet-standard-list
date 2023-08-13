@@ -1,0 +1,14 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite"
+  },
+  "dependencies": {
+    "wallet-standard-list": "workspace:^"
+  },
+  "devDependencies": {
+    "glob": "^9.3.4",
+    "vite": "^4.2.1"
+  }
+}

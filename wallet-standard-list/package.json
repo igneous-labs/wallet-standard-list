@@ -1,0 +1,18 @@
+{
+  "name": "wallet-standard-list",
+  "version": "0.1.0",
+  "main": "./src/index.js",
+  "exports": "./src/index.js",
+  "type": "module",
+  "license": "Apache-2.0",
+  "files": [
+    "src/"
+  ],
+  "dependencies": {
+    "@wallet-standard/app": "^1"
+  },
+  "devDependencies": {
+    "@wallet-standard/base": "^1.0.1",
+    "@wallet-standard/features": "^1.0.3"
+  }
+}
