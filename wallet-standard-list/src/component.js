@@ -1,6 +1,6 @@
 import { getWallets } from "@wallet-standard/app";
 
-/** @typedef {import("@wallet-standard/base").WalletWithFeatures<import("@wallet-standard/features").StandardConnectFeature & import("@wallet-standard/features").StandardDisconnectFeature>} ConnectableWallet */
+/** @typedef {import("@wallet-standard/base").WalletWithFeatures<import("@wallet-standard/features").StandardConnectFeature>} ConnectableWallet */
 
 /** @typedef {typeof WALLET_CONNECTED_EVENT_TYPE} WalletConnectedEventType */
 
@@ -39,7 +39,7 @@ export class WalletStandardList extends HTMLElement {
   /** @type {import("@wallet-standard/base").IdentifierArray} */
   get requiredFeatures() {
     /** @type {import("@wallet-standard/base").IdentifierArray} */
-    const base = ["standard:connect", "standard:disconnect"];
+    const base = ["standard:connect"];
     const attrVal = this.getAttribute(REQUIRED_FEATURES_ATTR_NAME);
     if (!attrVal) {
       return base;
@@ -95,9 +95,12 @@ export class WalletStandardList extends HTMLElement {
       bubbles: true,
     });
     this.dispatchEvent(evt);
-    // let disconnect() run async in background,
+    // let disconnect() run async in background if the wallet has the feature,
     // dispatch disconnected event as soon as #connectedWallet no longer referenced
-    wallet.features["standard:disconnect"].disconnect();
+    const disconnectFeature = wallet.features["standard:disconnect"];
+    if (disconnectFeature) {
+      disconnectFeature.disconnect();
+    }
   }
 
   rerender() {
