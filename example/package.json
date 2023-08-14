@@ -5,6 +5,7 @@
     "dev": "vite"
   },
   "dependencies": {
+    "base58-js": "^2.0.0",
     "wallet-standard-list": "workspace:^"
   },
   "devDependencies": {

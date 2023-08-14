@@ -44,6 +44,9 @@ importers:
 
   example:
     dependencies:
+      base58-js:
+        specifier: ^2.0.0
+        version: 2.0.0
       wallet-standard-list:
         specifier: workspace:^
         version: link:../wallet-standard-list
@@ -468,6 +471,11 @@ packages:
   /balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
     dev: true
+
+  /base58-js@2.0.0:
+    resolution: {integrity: sha512-nAV5d32QXuGcGptSApkKpC1gGakWBnfJMNjKrYTBh4tb0szfZF+ooueFLy8T4VrY+o4SrE/TyrtUnRZcwZchaA==}
+    engines: {node: '>= 8'}
+    dev: false
 
   /brace-expansion@1.1.11:
     resolution: {integrity: sha512-iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA==}
