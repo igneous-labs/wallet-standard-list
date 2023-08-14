@@ -45,3 +45,60 @@ wallet-standard-list > button > img {
 ```
 
 You can see the result of these basic styles in the example web-app in `example/`
+
+## Usage
+
+### Connecting a wallet
+
+On click, each button initiates the connect wallet flow with the respective wallet.
+
+On connect success, a `CustomEvent` is emitted with the following type:
+
+```js
+{
+  type: "wallet-standard-list:wallet-connected",
+  bubbles: true,
+  detail: Wallet, // standard wallet that connected
+}
+```
+
+### Using wallet features
+
+On successful connection, the connected wallet is made available through the element's `connectedWallet` property.
+
+```js
+const transaction = ...;
+const wallet = document.querySelector(
+  "wallet-standard-list"
+).connectedWallet;
+const account = wallet.accounts[0];
+const [{ signature }] = await wallet.features[
+  "solana:signAndSendTransaction"
+].signAndSendTransaction({
+  chain: "solana:mainnet",
+  account,
+  transaction,
+});
+```
+
+See `example/index.html` for a full example
+
+### Disconnecting the connected wallet
+
+Disconnecting the connected wallet must be handled by the app by calling the element's `disconnect()` method.
+
+```js
+document.querySelector("wallet-standard-list").disconnect();
+```
+
+On `disconnect()` call, a `CustomEvent` is immediately emitted with the following type:
+
+```js
+{
+  type: "wallet-standard-list:wallet-disconnected",
+  bubbles: true,
+  detail: Wallet, // standard wallet to disconnect
+}
+```
+
+The wallet might run some additional cleanup in the background at the same time.
