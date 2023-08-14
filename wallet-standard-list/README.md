@@ -48,7 +48,11 @@ You can see the result of these basic styles in the example web-app in `example/
 
 ## Usage
 
-### Connecting a wallet
+### Filtering Wallets by Features
+
+The `required-features` attribute allows users to filter standard wallets by [wallet-standard features](https://wallet-standard.github.io/wallet-standard/interfaces/_wallet_standard_base.Wallet.html#features) using a comma-separated list of feature names, displaying buttons only for wallets that have all required features.
+
+### Connecting a Wallet
 
 On click, each button initiates the connect wallet flow with the respective wallet.
 
@@ -62,7 +66,7 @@ On connect success, a `CustomEvent` is emitted with the following type:
 }
 ```
 
-### Using wallet features
+### Using the Connected Wallet
 
 On successful connection, the connected wallet is made available through the element's `connectedWallet` property.
 
@@ -83,7 +87,7 @@ const [{ signature }] = await wallet.features[
 
 See `example/index.html` for a full example
 
-### Disconnecting the connected wallet
+### Disconnecting the Connected Wallet
 
 Disconnecting the connected wallet must be handled by the app by calling the element's `disconnect()` method.
 
@@ -102,3 +106,11 @@ On `disconnect()` call, a `CustomEvent` is immediately emitted with the followin
 ```
 
 The wallet might run some additional cleanup in the background at the same time.
+
+### Others
+
+The list of all filtered standard wallets is available through the element's `wallets` property.
+
+```js
+const allWallets = document.querySelector("wallet-standard-list").wallets;
+```

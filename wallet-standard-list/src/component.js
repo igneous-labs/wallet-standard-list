@@ -53,6 +53,10 @@ export class WalletStandardList extends HTMLElement {
     return [REQUIRED_FEATURES_ATTR_NAME];
   }
 
+  /**
+   *
+   * @param {string} name
+   */
   attributeChangedCallback(name) {
     switch (name) {
       case REQUIRED_FEATURES_ATTR_NAME:
@@ -78,8 +82,7 @@ export class WalletStandardList extends HTMLElement {
   }
 
   detachedCallback() {
-    for (let i = 0; i < this.#walletsListenersOff.length; i++) {
-      const off = this.#walletsListenersOff[i];
+    for (const off of this.#walletsListenersOff) {
       off();
     }
   }
@@ -106,7 +109,7 @@ export class WalletStandardList extends HTMLElement {
   rerender() {
     const { get } = getWallets();
     const allWallets = get();
-    const { requiredFeatures } = this;
+    const { requiredFeatures, connectedWallet } = this;
     /** @type {ConnectableWallet[]} */
     // @ts-ignore
     const newWallets = allWallets.filter((w) => {
@@ -118,12 +121,11 @@ export class WalletStandardList extends HTMLElement {
       return true;
     });
 
-    const { connectedWallet } = this;
     if (connectedWallet !== null) {
-      const hasConnected =
+      const newWalletsHaveConnected =
         newWallets.findIndex((w) => w.name === connectedWallet.name) >= 0;
-      if (!hasConnected) {
-        this.#connectedWallet = null;
+      if (!newWalletsHaveConnected) {
+        this.disconnect();
       }
     }
 
@@ -145,8 +147,7 @@ export class WalletStandardList extends HTMLElement {
       }
     }
 
-    for (let i = 0; i < newWalletsToAppend.length; i++) {
-      const newWalletToAppend = newWalletsToAppend[i];
+    for (const newWalletToAppend of newWalletsToAppend) {
       this.appendChild(this.createButton(newWalletToAppend));
     }
 
