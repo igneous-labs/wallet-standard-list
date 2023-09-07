@@ -1,11 +1,13 @@
 {
   "name": "wallet-standard-list",
+  "description": "Custom Element that creates a list of 'connect wallet' buttons for wallet-standard wallets",
+  "repository": "github:igneous-labs/wallet-standard-list",
+  "homepage": "https://github.com/igneous-labs/wallet-standard-list",
   "version": "0.1.2",
-  "main": "src/index.js",
   "exports": {
     ".": {
       "types": "./types/index.d.ts",
-      "import": "./src/index.js"
+      "browser": "./src/index.js"
     }
   },
   "types": "types/index.d.ts",

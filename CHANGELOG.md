@@ -15,6 +15,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Generate nullable types correctly for `.d.ts`
 
+### Changed
+
+- Changed `exports` in `package.json` to be browser only
+
 ## [0.1.2] - 2023-09-05
 
 ### Fixed
