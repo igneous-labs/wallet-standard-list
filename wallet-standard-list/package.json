@@ -3,7 +3,7 @@
   "description": "Custom Element that creates a list of 'connect wallet' buttons for wallet-standard wallets",
   "repository": "github:igneous-labs/wallet-standard-list",
   "homepage": "https://github.com/igneous-labs/wallet-standard-list",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "exports": {
     ".": {
       "types": "./types/index.d.ts",
