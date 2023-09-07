@@ -30,10 +30,12 @@ export class WalletStandardList extends HTMLElement {
   /** @type {Array<() => void>} */
   #walletsListenersOff;
 
+  /** @returns {?ConnectableWallet} */
   get connectedWallet() {
     return this.#connectedWallet;
   }
 
+  /** @returns {ConnectableWallet[]} */
   get wallets() {
     return this.#wallets;
   }
@@ -51,18 +53,19 @@ export class WalletStandardList extends HTMLElement {
     return [...base, ...splitted.map((s) => s.trim())];
   }
 
+  /** @returns {string[]} */
   static get observedAttributes() {
     return [REQUIRED_FEATURES_ATTR_NAME];
   }
 
   /**
-   *
+   * override
    * @param {string} name
    */
   attributeChangedCallback(name) {
     switch (name) {
       case REQUIRED_FEATURES_ATTR_NAME:
-        this.rerender();
+        this.#rerender();
         break;
       default:
         break;
@@ -76,13 +79,14 @@ export class WalletStandardList extends HTMLElement {
     this.#walletsListenersOff = [];
 
     const { on } = getWallets();
-    this.#walletsListenersOff.push(on("register", this.rerender.bind(this)));
-    this.#walletsListenersOff.push(on("unregister", this.rerender.bind(this)));
+    this.#walletsListenersOff.push(on("register", this.#rerender.bind(this)));
+    this.#walletsListenersOff.push(on("unregister", this.#rerender.bind(this)));
     // sometimes the wallets register before the listeners are added
     // so just rerender once more to be safe
-    this.rerender();
+    this.#rerender();
   }
 
+  /** override */
   detachedCallback() {
     for (const off of this.#walletsListenersOff) {
       off();
@@ -102,13 +106,14 @@ export class WalletStandardList extends HTMLElement {
     this.dispatchEvent(evt);
     // let disconnect() run async in background if the wallet has the feature,
     // dispatch disconnected event as soon as #connectedWallet no longer referenced
+    // @ts-ignore
     const disconnectFeature = wallet.features["standard:disconnect"];
     if (disconnectFeature) {
       disconnectFeature.disconnect();
     }
   }
 
-  rerender() {
+  #rerender() {
     const { get } = getWallets();
     const allWallets = get();
     const { requiredFeatures, connectedWallet } = this;
@@ -145,12 +150,12 @@ export class WalletStandardList extends HTMLElement {
       }
 
       if (btn.name !== newWallet.name) {
-        this.replaceChild(this.createButton(newWallet), btn);
+        this.replaceChild(this.#createButton(newWallet), btn);
       }
     }
 
     for (const newWalletToAppend of newWalletsToAppend) {
-      this.appendChild(this.createButton(newWalletToAppend));
+      this.appendChild(this.#createButton(newWalletToAppend));
     }
 
     this.#wallets = newWallets;
@@ -161,7 +166,7 @@ export class WalletStandardList extends HTMLElement {
    * @param {ConnectableWallet} wallet
    * @returns {HTMLButtonElement}
    */
-  createButton(wallet) {
+  #createButton(wallet) {
     const btn = document.createElement("button");
     btn.type = "button";
 
