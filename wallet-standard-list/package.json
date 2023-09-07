@@ -17,7 +17,7 @@
   ],
   "scripts": {
     "prepack": "pnpm typegen",
-    "typegen": "pnpm tsc src/index.js --skipLibCheck --declaration --allowJs --emitDeclarationOnly --outDir types"
+    "typegen": "pnpm tsc src/index.js --skipLibCheck --strict --declaration --allowJs --emitDeclarationOnly --outDir types"
   },
   "dependencies": {
     "@wallet-standard/app": "^1"
