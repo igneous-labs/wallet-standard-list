@@ -1,5 +1,7 @@
 # wallet-standard-list
 
+[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/wallet-standard-list)
+
 Custom element for displaying a "connect wallet" button for every wallet-standard wallet registered.
 
 All HTML elements within are NOT encapsulated in the shadow DOM and completely unstyled to allow for complete styling customization.
@@ -113,4 +115,45 @@ The list of all filtered standard wallets is available through the element's `wa
 
 ```js
 const allWallets = document.querySelector("wallet-standard-list").wallets;
+```
+
+## Demo
+
+<!--
+```
+<custom-element-demo>
+  <template>
+    <script type="module">
+      import { defineCustomElement } from "./src/index.js";
+      defineCustomElement();
+    </script>
+    <style>
+      wallet-standard-list {
+        display: inline-flex; /* custom element default to display: inline */
+        flex-direction: column;
+        gap: 0.25rem;
+      }
+
+      wallet-standard-list > button {
+        display: flex;
+        align-items: center;
+        height: 3rem;
+        font-size: 1rem;
+      }
+
+      wallet-standard-list > button > img {
+        height: 75%;
+        margin-right: 1rem;
+      }
+    </style>
+    <next-code-block></next-code-block>
+  </template>
+</custom-element-demo>
+```
+-->
+
+```html
+<p>Empty if no standard wallets detected</p>
+
+<wallet-standard-list></wallet-standard-list>
 ```
